@@ -210,6 +210,6 @@ Secondly, perform all the translations in step (4) concurrently.
 You might find that this doesn't work well - the API seems to have a
 limit on the number of concurrent requests, so if you submit them all
 together, some will time out.  So the next task is to ensure that we
-limit the number of requests we make at any one time - use a QSem to
+limit the number of requests we make at any one time - use a `QSem` to
 limit the number of concurrent connections.  Start with 3 concurrent
 connections, and vary it up and down to see what effect it has.
