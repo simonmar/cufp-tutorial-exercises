@@ -175,9 +175,7 @@ Some things you might need:
     read :: Read a => String -> a
 
 
-# 3. Channels
-
-# 4. Overlapping I/O
+# 3. Overlapping I/O
 
 Clone the repo at
 
