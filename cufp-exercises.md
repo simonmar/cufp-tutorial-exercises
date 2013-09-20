@@ -208,3 +208,51 @@ together, some will time out.  So the next task is to ensure that we
 limit the number of requests we make at any one time - use a `QSem` to
 limit the number of concurrent connections.  Start with 3 concurrent
 connections, and vary it up and down to see what effect it has.
+
+# 4 STM
+
+We're going to write a little language translation UI, structured as a
+set of communicating threads.
+
+The behaviour is as follows;
+
+* The system keeps track of a line of text to translate, and a language
+* The user can type
+  * "lang XX" to change the language to XX (e.g. en, fr)
+  * "text <string>" to change the text to translate to <string>
+  * "exit" to terminate the program
+* Whenever the language or the input text is changed, the program prints out the new translated text.
+
+For this exercise we want to structure the program as three threads:
+
+1. A thread to receive input from the user
+2. A thread to perform translations (calling
+   BingTranslator.translateText)
+3. A thread to print the translated text back to the user
+
+We can do this in two ways. Choose one to try first, and if you get it
+working one way, then try it the other way:
+
+## 4.1 actors
+
+The threads communicate with each other by sending messages down
+channels (use `TChan`).  The input thread sends a message to the
+translation thread when a new command is entered; the translation
+thread sends a message to the render thread when the translated text
+is available.
+
+You'll need to create the appropriate channels and decide what types
+of values pass down them.
+
+## 4.1 Watching for changes in shared state
+
+Store the state in three TVars, one for the current language, one for
+the input text, and one for the translated text.
+
+* The input thread reads command and updates the state appropriately.
+
+* The translator thread watches for changes in the language and input text, and performs a translation call when one of these changes,
+storing the result in the translated text TVar.
+
+* The renderer thread watches for changes in the translated text, and when it has new text, prints it out.
+
