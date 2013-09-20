@@ -177,15 +177,12 @@ Some things you might need:
 
 # 3. Overlapping I/O
 
-Clone the repo at
-
-   http://community.haskell.org/~simonmar/bingtranslator.git
-
-This is a program to translate some text into various different
-languages using the Bing translation API.  The translation API is free
-to use up to a certain number of requests per day; I have signed up
-for a key and included it in the code, so all you need to do is use
-the API provided by the BingTranslator module.
+Under bingtranslator in this repository is a program to translate some
+text into various different languages using the Bing translation API.
+The translation API is free to use up to a certain number of requests
+per day; I have signed up for a key and included it in the code, so
+all you need to do is use the API provided by the BingTranslator
+module.
 
 There's a simple Main module that does the followin:
 
