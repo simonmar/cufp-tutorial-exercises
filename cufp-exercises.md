@@ -6,21 +6,21 @@ Write a program that reads lines of text from standard input, and
 outputs each line prefixed by its line number, starting from 1.  For
 example, if the input is
 
-   aaa
-   bbb
-   ccc
+    aaa
+    bbb
+    ccc
 
 The output would be
 
-   1 aaa
-   2 bbb
-   3 ccc
+    1 aaa
+    2 bbb
+    3 ccc
 
 Here are some functions that you might find useful (you don't have to
 use all of them, there are multiple ways to write this program).  Look
 them up in the documentation:
 
-   getLine, isEOF, putStr, getContents, lines, unlines
+    getLine, isEOF, putStr, getContents, lines, unlines
 
 When you're done, hit the tick (check) icon in the top bar and commit
 your files.
@@ -38,7 +38,7 @@ standard input.  Functions you might need:
 ## 1.3
 
 Modify the program to take an optional command-line argument.  To read
-the command-line arguments, import System.Environment and call
+the command-line arguments, import `System.Environment` and call
 
     getArgs
 
@@ -92,9 +92,9 @@ jobs.
 
 Hints:
 
-* use "data ThreadPool = ThreadPool (MVar (IO ()))"
+* use `data ThreadPool = ThreadPool (MVar (IO ()))`
 
-* don't forget to make your worker threads loop to pick up the next job after completing one.  "forever" is useful here.
+* don't forget to make your worker threads loop to pick up the next job after completing one.  `forever` is useful here.
 
 * You might need to use threadDelay at the end of the program to wait for the jobs to finish.
 
@@ -103,7 +103,7 @@ Hints:
 Add some debugging output so you can see what's going on.  We'll
 need
 
-   myThreadId :: IO ThreadId
+    myThreadId :: IO ThreadId
 
 and you can convert a ThreadId to a String using 'show'.
 
@@ -113,11 +113,11 @@ running.
 
 Modify the submit operation:
 
-   submit :: Pool -> IO Int -> IO Job
+    submit :: Pool -> IO Int -> IO Job
 
 and add a new operation:
 
-   wait :: Job -> IO Int
+    wait :: Job -> IO Int
 
 So now a job can return a value, and we can wait for the value at any
 time.
@@ -131,16 +131,16 @@ Bonus question (feel free to skip to 2.4).
 
 Try this main function with your thread pool:
 
-   main = do
-     p <- newThreadPool 3
-     let run io = do j <- submit p io; wait j
-         end = do print "DONE"; return 0
+    main = do
+      p <- newThreadPool 3
+      let run io = do j <- submit p io; wait j
+          end = do print "DONE"; return 0
 
-     run $ run $ run end
+      run $ run $ run end
 
 It should print "DONE".  Now add one more run, like this:
 
-     run $ run $ run $ run end
+      run $ run $ run $ run end
 
 What happens?  Can you explain why? (feel free to add more
 debugging output to help you understand what's going on).
@@ -153,7 +153,7 @@ Write a game that works as follows:
 
 The program prints out an arithmetic problem of the form
 
-   X op Y
+    X op Y
 
 where X and Y are numbers between 0 and 50, and op is either +, -, or
 *.
@@ -165,14 +165,14 @@ response is "OUT OF TIME".  The program then exits.
 
 Some things you might need:
 
-   -- binds x to a random number between 0 and 50
-   x <- randomRIO (0,50::Int)
+    -- binds x to a random number between 0 and 50
+    x <- randomRIO (0,50::Int)
 
-   -- sleep for a while
-   threadDelay :: Int -> IO () -- Int is in microseconds
+    -- sleep for a while
+    threadDelay :: Int -> IO () -- Int is in microseconds
 
-   -- convert a String into another type (e.g. Int)
-   read :: Read a => String -> a
+    -- convert a String into another type (e.g. Int)
+    read :: Read a => String -> a
 
 
 # 3. Channels
